@@ -1,11 +1,11 @@
 # ML-Project
 ## This is full stack machine learning project.
 
-## Software and Account Requirement
-1.  Github Account
-2.  Heroku Account
-3.  VS Code
-4.  Git Bash/Command promt
+### Software and Account Requirement
+    1.  Github Account
+    2.  Heroku Account
+    3.  VS Code
+    4.  Git Bash/Command promt
 
 
 Creating Conda Environment:
@@ -60,6 +60,16 @@ git log
 To create version/commit all changes by git
 ```
 git commit -m <message>
+```
+
+To check remote url
+```
+git remote -v
+```
+
+To push code to remote repository
+```
+git push origin main
 ```
 
 
