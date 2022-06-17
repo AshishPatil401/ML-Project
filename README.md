@@ -2,6 +2,7 @@
 ## This is full stack machine learning project.
 
 ## Software and Account Requirement
+<<<<<<< HEAD
 1.  Github Account
 2.  Heroku Account
 3.  VS Code
@@ -36,4 +37,10 @@ pip install -r requirements.txt
 Create app.py file to write flask app code.
 
 
+=======
+1. [Github Account]
+2. [Heroku Account]
+3. [VS Code]
+4. [Git Bash]
+>>>>>>> d287846f7548e2d0140f0af9363e8a250bb7f19c
 
