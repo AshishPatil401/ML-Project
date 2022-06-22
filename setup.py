@@ -1,12 +1,11 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 from typing import List
 
 #Declaring variable for setup function
 PROJECT_NAME = "housing-predictor"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 AUTHER = "Ashish Patil"
 DESCRIPTION = "This is Machine Learning Project for house price prediction"
-PACKAGES = ["housing"]
 REQUIREMENT_FILE_NAME = "requirements.txt"
 
 def get_requirements_list()->List[str]:
@@ -18,7 +17,11 @@ def get_requirements_list()->List[str]:
     of libraries mentioned in requirements.txt file. 
     """
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
-        return requirement_file.readlines()
+        return requirement_file.readlines().remove("-e .") 
+    """
+    Here we are going to remove -e . because we have used find_packages() function which
+    can perform similar task.
+    """
 
 
 
@@ -27,8 +30,7 @@ setup(
     version=VERSION,
     author=AUTHER,
     description=DESCRIPTION,
-    packages=PACKAGES,
+    packages=find_packages(),   #or ["housing"] 
     install_requires=get_requirements_list()
-
 )
 

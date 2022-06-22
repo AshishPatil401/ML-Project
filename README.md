@@ -109,6 +109,15 @@ docker stop <container_id>
 ```
 
 To install libraries mentioned in requirement.txt file
+It will install all external libraries and packages mentioned in the file
 ```
 python setup.py install
 ```
+
+
+To install custom packages like housing, add -e . to requirements.txt
+```
+-e .
+```
+NOTE: Whenever we are going to install -e . at that time setup.py file should be present in current directory.
+
