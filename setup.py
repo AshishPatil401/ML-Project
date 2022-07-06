@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 from typing import List
 
-#Declaring variable for setup function
+# Declaring variable for setup function
 PROJECT_NAME = "housing-predictor"
 VERSION = "0.0.2"
 AUTHER = "Ashish Patil"
@@ -19,8 +19,10 @@ def get_requirements_list()->List[str]:
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
         return requirement_file.readlines().remove("-e .") 
     """
-    Here we are going to remove -e . because we have used find_packages() function which
-    can perform similar task.
+    pip install -e . 
+    1. It is used to check local packages inside root folder
+    2. Here we are going to remove -e . because we have used find_packages() function which
+       can perform similar task.
     """
 
 
