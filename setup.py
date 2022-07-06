@@ -3,7 +3,7 @@ from typing import List
 
 # Declaring variable for setup function
 PROJECT_NAME = "housing-predictor"
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 AUTHER = "Ashish Patil"
 DESCRIPTION = "This is Machine Learning Project for house price prediction"
 REQUIREMENT_FILE_NAME = "requirements.txt"
@@ -15,6 +15,7 @@ def get_requirements_list()->List[str]:
 
     return: This function is going to return a list which contain name 
     of libraries mentioned in requirements.txt file. 
+    ["Flask", "gunicorn", "pandas", "numpy", "sklearn", "-e ."]
     """
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
         return requirement_file.readlines().remove("-e .") 
@@ -32,7 +33,7 @@ setup(
     version=VERSION,
     author=AUTHER,
     description=DESCRIPTION,
-    packages=find_packages(),   #or ["housing"] 
-    install_requires=get_requirements_list()
+    packages=find_packages(),                    #or ["housing"]   function to find custom packages (housing)
+    install_requires=get_requirements_list()     # function to read names of external packages written in requirement.txt file
 )
 
