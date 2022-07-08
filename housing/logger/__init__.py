@@ -1,7 +1,5 @@
 import logging
 from datetime import datetime
-from tkinter import CURRENT
-from tkinter.tix import InputOnly
 import os
 
 LOG_DIR = "housing_logs"
