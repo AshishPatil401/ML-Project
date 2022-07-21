@@ -121,3 +121,10 @@ To install custom packages like housing, add -e . to requirements.txt
 ```
 NOTE: Whenever we are going to install -e . at that time setup.py file should be present in current directory.
 
+
+To install ipykernel
+```
+pip install ipykernel
+```
+
+Data Drift: When your datset stats gets change we call it as data drift
