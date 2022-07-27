@@ -55,3 +55,4 @@ NUMERICAL_COLUMN_KEY="numerical_columns"
 CATEGORICAL_COLUMN_KEY = "categorical_columns"
 
 TARGET_COLUMN_KEY="target_column"
+
