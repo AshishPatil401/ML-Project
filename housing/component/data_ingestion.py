@@ -1,5 +1,3 @@
-from curses import raw
-from tkinter import E, HORIZONTAL
 from housing.entity.config_entity import DataIngestionConfig
 import sys,os
 from housing.exception import HousingException
@@ -132,4 +130,3 @@ class DataIngestion:
     def __del__(self):
         logging.info(f"{'='*20}Data Ingestion log completed.{'='*20} \n\n")
 
-        
