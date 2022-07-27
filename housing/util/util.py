@@ -4,7 +4,7 @@ import os, sys
 
 def read_yaml_file(file_path:str) -> dict:
     """
-    Read a yaml file and returns the contents as dictionary
+    Description: Read a yaml file and returns the content as a dictionary
     file_path: str
     """
     try:
