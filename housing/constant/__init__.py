@@ -56,3 +56,14 @@ CATEGORICAL_COLUMN_KEY = "categorical_columns"
 
 TARGET_COLUMN_KEY="target_column"
 
+
+# Model Training related constants
+MODEL_TRAINER_ARTIFACT_DIR = "model_trainer"
+MODEL_TRAINER_CONFIG_KEY = "model_trainer_config"
+MODEL_TRAINER_TRAINED_MODEL_DIR_KEY = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_FILE_NAME_KEY = "model.pkl"
+MODEL_TRAINER_BASE_ACCURACY_KEY = "0.6"
+MODEL_TRAINER_MOADEL_CONFIG_DIR_KEY = "config"
+MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model.yaml"
+
+

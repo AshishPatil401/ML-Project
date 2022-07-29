@@ -85,11 +85,10 @@ class Configuration:
                 self.time_stamp
             )
 
-            data_validation_info = self.config_info[DATA_INGESTION_CONFIG_KEY]
+            data_validation_info = self.config_info[DATA_VALIDATION_CONFIG_KEY]
 
-            schema_file_path = os.path.join(
-                ROOT_DIR, 
-                data_validation_info[DATA_VALIDATION_SCHEMA_DIR_KEY], 
+            schema_file_path = os.path.join(ROOT_DIR,
+                data_validation_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
                 data_validation_info[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY]
             )
 
@@ -98,7 +97,7 @@ class Configuration:
                 data_validation_info[DATA_VALIDATION_REPORT_FILE_NAME_KEY]
             )
 
-            report_page_file_path = os.join(
+            report_page_file_path = os.path.join(
                 data_validation_artifact_dir,
                 data_validation_info[DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY]
             )
