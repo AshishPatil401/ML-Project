@@ -107,6 +107,7 @@ class Configuration:
                 report_file_path=report_file_path,
                 report_page_file_path=report_page_file_path
             )
+            logging.info(f"Data Validation Config: {data_validation_config}")
             return data_validation_config
         except Exception as e:
             raise HousingException(e,sys) from e
@@ -150,7 +151,8 @@ class Configuration:
                 transformed_train_dir=transformed_train_dir,
                 transformed_test_dir=transformed_test_dir,
                 preprocessed_object_file_path=preprocessed_object_file_path
-            )            
+            )
+            logging.info(f"Data Transformation config : {data_transformation_config}")            
             return data_transformation_config
         except Exception as e:
             raise HousingException(e,sys) from e

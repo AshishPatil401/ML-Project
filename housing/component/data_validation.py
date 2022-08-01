@@ -1,6 +1,5 @@
-from evidently import dashboard
-from housing.logger import logging
 from housing.exception import HousingException
+from housing.logger import logging
 from housing.entity.config_entity import DataValidationConfig
 from housing.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 import os,sys
@@ -19,7 +18,7 @@ class DataValidation:
         data_ingestion_artifact:DataIngestionArtifact
     ) -> None:
         try:
-            logging.info(f"{'>>'*15}Data Valdaition log started.{'<<'*15} \n\n")
+            logging.info(f"{'>>'*15}Data Valdaition log started.{'<<'*15}")
             self.data_validation_config = data_validation_config
             self.data_ingestion_artifact = data_ingestion_artifact
         except Exception as e:
@@ -64,6 +63,8 @@ class DataValidation:
 
     def validate_dataset_schema(self) -> bool:
         try:
+            validation_status = False
+
             """
             Assignment:
                 1.Number of columns
@@ -144,4 +145,4 @@ class DataValidation:
 
     
     def __del__(self):
-        logging.info(f"{'>>'*15}Data Valdaition log completed.{'<<'*15} \n\n")
+        logging.info(f"{'>>'*15}Data Valdaition log completed.{'<<'*15} \n")

@@ -1,10 +1,12 @@
-from housing.entity.config_entity import DataIngestionConfig
-import sys,os
 from housing.exception import HousingException
 from housing.logger import logging
+from housing.entity.config_entity import DataIngestionConfig
 from housing.entity.artifact_entity import DataIngestionArtifact
+import sys,os
+
 import tarfile
-from six.moves import urllib
+# from six.moves import urllib
+from six.moves.urllib.request import urlretrieve
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -16,7 +18,7 @@ class DataIngestion:
 
     def __init__(self,data_ingestion_config:DataIngestionConfig):
         try:
-            logging.info(f"{'='*20}Data Ingestion log started{'='*20}")
+            logging.info(f"{'>>'*15}Data Ingestion log started{'<<'*15}")
             self.data_ingestion_config = data_ingestion_config            
         except Exception as e:
             raise HousingException(e,sys)
@@ -40,7 +42,8 @@ class DataIngestion:
             tgz_file_path = os.path.join(tgz_download_dir,housing_file_name)
 
             logging.info(f"Downloading file from :[{download_url}] into dir: [{tgz_file_path}]")
-            urllib.request.urlretrieve(download_url, tgz_file_path)
+            # urllib.request.retrieve(download_url, tgz_file_path)
+            urlretrieve(download_url, tgz_file_path)
             logging.info(f"File : [{tgz_file_path}] has been downloaded sucessfully...")
 
             return tgz_file_path
@@ -130,5 +133,5 @@ class DataIngestion:
 
 
     def __del__(self):
-        logging.info(f"{'='*20}Data Ingestion log completed.{'='*20} \n\n")
+        logging.info(f"{'>>'*15}Data Ingestion log completed.{'<<'*15} \n")
 
