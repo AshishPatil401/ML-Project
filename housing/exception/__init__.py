@@ -19,7 +19,6 @@ class HousingException(Exception):
         _, _, exce_tb = error_details.exc_info()
         exception_block_lineno = exce_tb.tb_frame.f_lineno
         try_block_line_number = exce_tb.tb_lineno
-        line_number = exce_tb.tb_lineno
         file_name = exce_tb.tb_frame.f_code.co_filename
         
         error_message = f"""

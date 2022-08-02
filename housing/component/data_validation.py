@@ -2,6 +2,7 @@ from housing.exception import HousingException
 from housing.logger import logging
 from housing.entity.config_entity import DataValidationConfig
 from housing.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
+from housing.util.util import read_yaml_file
 import os,sys
 import pandas as pd
 
@@ -63,8 +64,9 @@ class DataValidation:
 
     def validate_dataset_schema(self) -> bool:
         try:
+            logging.info("Checking whether training and testing data file are valid or not")
             validation_status = False
-
+            
             """
             Assignment:
                 1.Number of columns
@@ -72,7 +74,60 @@ class DataValidation:
                 3.Ocean proximity check values
                     acceptable values:INLAND, ISLAND, NEAR_BAY, NEAR_OCEAN
             """
-            validation_status = True
+            
+            # Read schema info
+            schema_info = read_yaml_file(self.data_validation_config.schema_file_path)
+            schema_columns = list(schema_info["columns"].keys())
+            schema_domain_values = list(schema_info["domain_value"]["ocean_proximity"])
+            schema_number_of_columns = len(schema_columns)
+
+            # Read train and test file
+            train_df,test_df = self.get_train_and_test_df()
+
+            # Train file info
+            train_columns = list(train_df.columns)
+            train_number_of_columns = len(train_columns)
+            train_domain_values = list(train_df["ocean_proximity"].value_counts().index)
+
+            # Test file info
+            test_columns = list(test_df.columns)
+            test_number_of_columns = len(test_columns)
+            test_domain_values = list(test_df["ocean_proximity"].value_counts().index)
+
+            # 1.Check number of columns
+            is_number_of_column_match = False
+            if (schema_number_of_columns==train_number_of_columns) and (schema_number_of_columns==test_number_of_columns):
+                is_number_of_column_match = True
+                logging.info(f"Is number of columns match? -> [{is_number_of_column_match}]")
+            else:
+                raise Exception("Input number of columns number does not match with schema")
+
+            # 2.Check column names
+            is_column_name_match = False
+            schema_columns.sort()
+            train_columns.sort()
+            test_columns.sort()
+            if(schema_columns==train_columns)and(schema_columns==test_columns):
+                is_column_name_match = True
+                logging.info(f"Is column names match? -> [{is_column_name_match}]")
+            else:
+                raise Exception("Input columns names does not match with schema")
+
+            # 3.Ocean proximity check values
+            is_domain_values_match = False
+            schema_domain_values.sort()
+            train_domain_values.sort()
+            test_domain_values.sort()
+
+            if(schema_domain_values==train_domain_values)and(schema_domain_values==test_domain_values):
+                is_domain_values_match = True
+                logging.info(f"Is schema domain values for ocean_proximity match? -> [{is_domain_values_match}]")
+            else:
+                raise Exception("ocean_proximity values does not match with schema")
+
+            validation_status = is_number_of_column_match and is_column_name_match and is_domain_values_match
+            
+            logging.info(f"Data Validation status? -> [{validation_status}]")
             return validation_status
         except Exception as e:
             raise HousingException(e,sys) from e

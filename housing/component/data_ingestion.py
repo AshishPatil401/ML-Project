@@ -5,11 +5,11 @@ from housing.entity.artifact_entity import DataIngestionArtifact
 import sys,os
 
 import tarfile
-from urllib.request import urlretrieve
+#from urllib.request import urlretrieve
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
-
+from six.moves import urllib
 
 
 
@@ -41,7 +41,7 @@ class DataIngestion:
             tgz_file_path = os.path.join(tgz_download_dir,housing_file_name)
 
             logging.info(f"Downloading file from :[{download_url}] into dir: [{tgz_file_path}]")
-            urlretrieve(download_url, tgz_file_path)
+            urllib.request.urlretrieve(download_url, tgz_file_path)
             logging.info(f"File : [{tgz_file_path}] has been downloaded sucessfully...")
 
             return tgz_file_path

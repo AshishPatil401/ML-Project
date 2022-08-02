@@ -31,6 +31,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 
+
 class FeatureGenerator(BaseEstimator,TransformerMixin):
 
     def __init__(self, add_bedrooms_per_room=True,
@@ -145,7 +146,6 @@ class DataTransformation:
         except Exception as e:
             raise HousingException(e,sys) from e
     
-
 
     def initiate_data_transformation(self) -> DataTransformationArtifact:
         try:

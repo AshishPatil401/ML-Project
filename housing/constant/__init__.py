@@ -35,6 +35,9 @@ DATA_VALIDATION_SCHEMA_DIR_KEY = "schema_dir"
 DATA_VALIDATION_REPORT_FILE_NAME_KEY = "report_file_name"
 DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY = "report_page_file_name"
 
+
+
+
 # Data Transformation related variables
 DATA_TRANFORMATION_ARTIFACT_DIR = "data_transformation" 
 DATA_TRANFORMATION_CONFIG_KEY = "data_transformation_config"

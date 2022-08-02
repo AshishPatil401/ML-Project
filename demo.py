@@ -13,8 +13,8 @@ def main():
         pipeline = Pipeline()
         pipeline.run_pipeline()
 
-        # data_validation_config = Configuration().get_data_validation_config()
-        # print(data_validation_config)
+        #data_validation_config = Configuration().get_data_validation_config()
+        #print(data_validation_config)
 
         # data_transformation_config = Configuration().get_data_transformation_config()
         # print(data_transformation_config)
