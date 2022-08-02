@@ -28,7 +28,7 @@ DATA_INGESTION_TRAIN_DIR_KEY = "ingested_train_dir"
 DATA_INGESTION_TEST_DIR_KEY = "ingested_test_dir"
 
 # Data Validation related 
-DATA_VALIDATION_ARTIFACT_DIR_NAME = "data_validation"
+DATA_VALIDATION_ARTIFACT_DIR = "data_validation"
 DATA_VALIDATION_CONFIG_KEY = "data_validation_config"
 DATA_VALIDATION_SCHEMA_FILE_NAME_KEY = "schema_file_name"
 DATA_VALIDATION_SCHEMA_DIR_KEY = "schema_dir"
@@ -64,10 +64,10 @@ TARGET_COLUMN_KEY="target_column"
 # Model Training related constants
 MODEL_TRAINER_ARTIFACT_DIR = "model_trainer"
 MODEL_TRAINER_CONFIG_KEY = "model_trainer_config"
-MODEL_TRAINER_TRAINED_MODEL_DIR_KEY = "trained_model"
-MODEL_TRAINER_TRAINED_MODEL_FILE_NAME_KEY = "model.pkl"
-MODEL_TRAINER_BASE_ACCURACY_KEY = "0.6"
-MODEL_TRAINER_MOADEL_CONFIG_DIR_KEY = "config"
-MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model.yaml"
+MODEL_TRAINER_TRAINED_MODEL_DIR_KEY = "trained_model_dir"
+MODEL_TRAINER_TRAINED_MODEL_FILE_NAME_KEY = "model_file_name"
+MODEL_TRAINER_BASE_ACCURACY_KEY = "base_accuracy"
+MODEL_TRAINER_MODEL_CONFIG_DIR_KEY = "model_config_dir"
+MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model_config_file_name"
 
 

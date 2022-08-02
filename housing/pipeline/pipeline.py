@@ -3,7 +3,6 @@ from housing.logger import logging
 from housing.exception import HousingException
 
 from housing.entity.artifact_entity import DataIngestionArtifact, DataTransformationArtifact, DataValidationArtifact
-from housing.entity.config_entity import DataIngestionConfig
 from housing.component.data_ingestion import DataIngestion
 from housing.component.data_validation import DataValidation
 from housing.component.data_transformation import DataTransformation
