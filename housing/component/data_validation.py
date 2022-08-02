@@ -145,4 +145,4 @@ class DataValidation:
 
     
     def __del__(self):
-        logging.info(f"{'>>'*15}Data Valdaition log completed.{'<<'*15} \n")
+        logging.info(f"{'>>'*15}Data Valdaition log completed.{'<<'*15} \n  ")

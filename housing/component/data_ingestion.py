@@ -5,12 +5,11 @@ from housing.entity.artifact_entity import DataIngestionArtifact
 import sys,os
 
 import tarfile
-# from six.moves import urllib
-from six.moves.urllib.request import urlretrieve
+from urllib.request import urlretrieve
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
-#import six
+
 
 
 
@@ -24,7 +23,7 @@ class DataIngestion:
             raise HousingException(e,sys)
     
 
-    def download_housing_data(self)->str:
+    def download_housing_data(self) -> str:
         try:
             #Extracting remote url to daownload datset
             download_url = self.data_ingestion_config.dataset_download_url
@@ -42,7 +41,6 @@ class DataIngestion:
             tgz_file_path = os.path.join(tgz_download_dir,housing_file_name)
 
             logging.info(f"Downloading file from :[{download_url}] into dir: [{tgz_file_path}]")
-            # urllib.request.retrieve(download_url, tgz_file_path)
             urlretrieve(download_url, tgz_file_path)
             logging.info(f"File : [{tgz_file_path}] has been downloaded sucessfully...")
 
