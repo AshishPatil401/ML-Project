@@ -6,6 +6,7 @@ from housing.entity.artifact_entity import DataIngestionArtifact, DataTransforma
 from housing.component.data_ingestion import DataIngestion
 from housing.component.data_validation import DataValidation
 from housing.component.data_transformation import DataTransformation
+from housing.component.model_trainer import ModelTrainer
 
 import os,sys
 
@@ -55,7 +56,7 @@ class Pipeline:
             raise HousingException(e,sys) from e
 
     
-    def start_model_trainer(self):
+    def start_model_trainer(self) -> ModelTrainerArtifact:
         try:
             pass
         except Exception as e:

@@ -36,8 +36,6 @@ DATA_VALIDATION_REPORT_FILE_NAME_KEY = "report_file_name"
 DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY = "report_page_file_name"
 
 
-
-
 # Data Transformation related variables
 DATA_TRANFORMATION_ARTIFACT_DIR = "data_transformation" 
 DATA_TRANFORMATION_CONFIG_KEY = "data_transformation_config"
@@ -54,11 +52,11 @@ COLUMN_POPULATION = "population"
 COLUMN_HOUSEHOLDS = "households"
 COLUMN_TOTAL_BEDROOM = "total_bedrooms"
 DATASET_SCHEMA_COLUMNS_KEY=  "columns"
-
-NUMERICAL_COLUMN_KEY="numerical_columns"
+NUMERICAL_COLUMN_KEY = "numerical_columns"
 CATEGORICAL_COLUMN_KEY = "categorical_columns"
-
-TARGET_COLUMN_KEY="target_column"
+TARGET_COLUMN_KEY= "target_column"
+DOMAIN_VALUE_KEY = "domain_value"
+OCEAN_PROXIMITY_KEY = "ocean_proximity"
 
 
 # Model Training related constants
@@ -70,4 +68,14 @@ MODEL_TRAINER_BASE_ACCURACY_KEY = "base_accuracy"
 MODEL_TRAINER_MODEL_CONFIG_DIR_KEY = "model_config_dir"
 MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model_config_file_name"
 
+
+# Model Evaluation related constants
+MODEL_EVALUATION_ARTIFACT_DIR = "model_evaluation"
+MODEL_EVALUATION_CONFIG_KEY = "model_evaluation_config"
+MODEL_EVALUATION_FILE_NAME = "model_evaluation_file_name"
+
+# Model Pusher related constants
+MODEL_PUSHER_ARTIFACT_DIR = "model_pusher"
+MODEL_PUSHER_CONFIG_KEY = "model_pusher_config"
+MODEL_PUSHER_MODEL_EXPORT_DIR_KEY = "model_export_dir"
 

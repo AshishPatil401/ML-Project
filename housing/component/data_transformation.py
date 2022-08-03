@@ -1,5 +1,3 @@
-from msilib import schema
-from sklearn import preprocessing
 from housing.exception import HousingException
 from housing.logger import logging
 from housing.entity.config_entity import DataTransformationConfig
@@ -121,10 +119,8 @@ class DataTransformation:
 
             num_pipeline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy="median")),
-                ('feature_generator', FeatureGenerator(
-                    add_bedrooms_per_room=self.data_transformation_config.add_bedroom_per_room,
-                    columns=numerical_column
-                )),
+                ('feature_generator', FeatureGenerator(add_bedrooms_per_room=self.data_transformation_config.add_bedroom_per_room,
+                                                       columns=numerical_column)),
                 ('scaler', StandardScaler())
             ])
 

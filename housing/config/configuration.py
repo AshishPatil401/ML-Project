@@ -1,4 +1,5 @@
-from housing.entity.config_entity import DataIngestionConfig, DataTransformationConfig, DataValidationConfig, ModelEvaluationConfig, ModelPusherConfig, ModelTrainingConfig, TrainingPipelineConfig
+from time import time
+from housing.entity.config_entity import DataIngestionConfig, DataTransformationConfig, DataValidationConfig, ModelEvaluationConfig, ModelPusherConfig, ModelTrainerConfig, TrainingPipelineConfig
 from housing.util.util import read_yaml_file
 from housing.logger import logging
 import os,sys
@@ -33,33 +34,33 @@ class Configuration:
                 self.time_stamp
             )
             
-            data_ingestion_info = self.config_info[DATA_INGESTION_CONFIG_KEY] 
+            data_ingestion_config_info = self.config_info[DATA_INGESTION_CONFIG_KEY] 
             
-            dataset_download_url = data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
+            dataset_download_url = data_ingestion_config_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
 
             tgz_download_dir = os.path.join(
                 data_ingestion_artifact_dir,
-                data_ingestion_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY]
+                data_ingestion_config_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY]
             )   
 
             raw_data_dir = os.path.join(
                 data_ingestion_artifact_dir,
-                data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+                data_ingestion_config_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
             )
 
             ingested_data_dir = os.path.join(
                 data_ingestion_artifact_dir,
-                data_ingestion_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY]
+                data_ingestion_config_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY]
             )
 
             ingested_train_dir = os.path.join(
                 ingested_data_dir,
-                data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY]
+                data_ingestion_config_info[DATA_INGESTION_TRAIN_DIR_KEY]
             )
             
             ingested_test_dir = os.path.join(
                 ingested_data_dir,
-                data_ingestion_info[DATA_INGESTION_TEST_DIR_KEY]
+                data_ingestion_config_info[DATA_INGESTION_TEST_DIR_KEY]
             )
 
             data_ingestion_config = DataIngestionConfig(
@@ -69,7 +70,7 @@ class Configuration:
                 ingested_train_dir= ingested_train_dir,
                 ingested_test_dir= ingested_test_dir 
             )
-            logging.info(f"Data Ingestion Config: {data_ingestion_config}")
+            logging.info(f"Data Ingestion Config: {data_ingestion_config}\n")
             return data_ingestion_config
         except Exception as e:
             raise HousingException(e,sys) from e
@@ -85,21 +86,21 @@ class Configuration:
                 self.time_stamp
             )
 
-            data_validation_info = self.config_info[DATA_VALIDATION_CONFIG_KEY]
+            data_validation_config_info = self.config_info[DATA_VALIDATION_CONFIG_KEY]
 
             schema_file_path = os.path.join(ROOT_DIR,
-                data_validation_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
-                data_validation_info[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY]
+                data_validation_config_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
+                data_validation_config_info[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY]
             )
 
             report_file_path = os.path.join(
                 data_validation_artifact_dir,
-                data_validation_info[DATA_VALIDATION_REPORT_FILE_NAME_KEY]
+                data_validation_config_info[DATA_VALIDATION_REPORT_FILE_NAME_KEY]
             )
 
             report_page_file_path = os.path.join(
                 data_validation_artifact_dir,
-                data_validation_info[DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY]
+                data_validation_config_info[DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY]
             )
 
             data_validation_config = DataValidationConfig(
@@ -107,7 +108,7 @@ class Configuration:
                 report_file_path=report_file_path,
                 report_page_file_path=report_page_file_path
             )
-            logging.info(f"Data Validation Config: {data_validation_config}")
+            logging.info(f"Data Validation Config: {data_validation_config}\n")
             return data_validation_config
         except Exception as e:
             raise HousingException(e,sys) from e
@@ -123,26 +124,26 @@ class Configuration:
                 self.time_stamp
             )
 
-            data_transformation_info = self.config_info[DATA_TRANFORMATION_CONFIG_KEY]
+            data_transformation_config_info = self.config_info[DATA_TRANFORMATION_CONFIG_KEY]
 
-            add_bedroom_per_room = data_transformation_info[DATA_TRANFORMATION_ADD_BEDROOM_PER_ROOM_KEY]
+            add_bedroom_per_room = data_transformation_config_info[DATA_TRANFORMATION_ADD_BEDROOM_PER_ROOM_KEY]
 
             preprocessed_object_file_path = os.path.join(
                 data_transformation_artifact_dir,
-                data_transformation_info[DATA_TRANFORMATION_PREPROCESSING_DIR_KEY],
-                data_transformation_info[DATA_TRANFORMATION_PREPROCESSED_FILE_NAME_KEY]
+                data_transformation_config_info[DATA_TRANFORMATION_PREPROCESSING_DIR_KEY],
+                data_transformation_config_info[DATA_TRANFORMATION_PREPROCESSED_FILE_NAME_KEY]
             )
             
             transformed_train_dir = os.path.join(
                 data_transformation_artifact_dir,
-                data_transformation_info[DATA_TRANFORMATION_DIR_NAME_KEY],
-                data_transformation_info[DATA_TRANFORMATION_TRAIN_DIR_NAME_KEY]
+                data_transformation_config_info[DATA_TRANFORMATION_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANFORMATION_TRAIN_DIR_NAME_KEY]
             )
 
             transformed_test_dir = os.path.join(
                 data_transformation_artifact_dir,
-                data_transformation_info[DATA_TRANFORMATION_DIR_NAME_KEY],
-                data_transformation_info[DATA_TRANFORMATION_TEST_DIR_NAME_KEY]
+                data_transformation_config_info[DATA_TRANFORMATION_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANFORMATION_TEST_DIR_NAME_KEY]
             )
 
 
@@ -152,13 +153,13 @@ class Configuration:
                 transformed_test_dir=transformed_test_dir,
                 preprocessed_object_file_path=preprocessed_object_file_path
             )
-            logging.info(f"Data Transformation config : {data_transformation_config}")            
+            logging.info(f"Data Transformation config : {data_transformation_config}\n")            
             return data_transformation_config
         except Exception as e:
             raise HousingException(e,sys) from e
 
 
-    def get_model_trainer_config(self) -> ModelTrainingConfig:
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
         try:
             artifact_dir = self.training_pipeline_config.artifact_dir
 
@@ -184,12 +185,12 @@ class Configuration:
                 model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY]
             )
 
-            model_trainer_config = ModelTrainingConfig(
+            model_trainer_config = ModelTrainerConfig(
                 trained_model_file_path=trained_model_file_path,
                 base_accuracy=base_accuracy,
                 model_config_file_path=model_config_file_path
             )
-            logging.info(f"Model Training Config: {model_trainer_config}")
+            logging.info(f"Model Training Config : {model_trainer_config}\n")
             return model_trainer_config
         except Exception as e:
             raise HousingException(e,sys) from e
@@ -197,14 +198,46 @@ class Configuration:
 
     def get_model_evaluation_config(self) -> ModelEvaluationConfig:
         try:
-            pass
+            artifact_dir = self.training_pipeline_config.artifact_dir
+            
+            model_evaluation_artifact_dir =os.path.join(
+                artifact_dir,
+                MODEL_EVALUATION_ARTIFACT_DIR,
+                self.time_stamp
+            )
+
+            model_evaluation_config_info = self.config_info[MODEL_EVALUATION_CONFIG_KEY]
+
+            model_evaluation_file_path = os.path.join(
+                model_evaluation_artifact_dir,
+                model_evaluation_config_info[MODEL_EVALUATION_CONFIG_KEY]
+            )
+
+            model_evaluation_config = ModelEvaluationConfig(
+                model_evaluation_file_path=model_evaluation_file_path,
+                time_stamp=self.time_stamp
+            )
+            logging.info(f"Model Evaluation Config : {model_evaluation_config}\n")
+            return model_evaluation_config
         except Exception as e:
             raise HousingException(e,sys) from e
 
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
         try:
-            pass
+            time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            model_pusher_config_info = self.config_info(MODEL_PUSHER_CONFIG_KEY)
+            
+            export_dir_path = os.path.join(
+                ROOT_DIR,
+                model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
+                time_stamp
+            )
+
+            model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
+
+            logging.info(f"Model Pusher Config : {model_pusher_config}\n")
+            return model_pusher_config
         except Exception as e:
             raise HousingException(e,sys) from e
 

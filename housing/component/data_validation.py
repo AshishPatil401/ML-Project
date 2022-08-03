@@ -3,6 +3,7 @@ from housing.logger import logging
 from housing.entity.config_entity import DataValidationConfig
 from housing.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 from housing.util.util import read_yaml_file
+from constant import *
 import os,sys
 import pandas as pd
 
@@ -77,8 +78,8 @@ class DataValidation:
             
             # Read schema info
             schema_info = read_yaml_file(self.data_validation_config.schema_file_path)
-            schema_columns = list(schema_info["columns"].keys())
-            schema_domain_values = list(schema_info["domain_value"]["ocean_proximity"])
+            schema_columns = list(schema_info[DATASET_SCHEMA_COLUMNS_KEY].keys())
+            schema_domain_values = list(schema_info[DOMAIN_VALUE_KEY][OCEAN_PROXIMITY_KEY])
             schema_number_of_columns = len(schema_columns)
 
             # Read train and test file
