@@ -8,7 +8,6 @@ from collections import namedtuple
 from typing import List
 from sklearn.metrics import r2_score,mean_squared_error
 
-
 GRID_SEARCH_KEY = 'grid_search'
 MODULE_KEY = 'module'
 CLASS_KEY = 'class'
@@ -45,10 +44,6 @@ MetricInfoArtifact = namedtuple("MetricInfoArtifact",["model_name",
                                                       "index_number"])
 
 
-def evaluate_classification_model(model_list: list, X_train:np.ndarray, y_train:np.ndarray, X_test:np.ndarray, y_test:np.ndarray, base_accuracy:float=0.6)->MetricInfoArtifact:
-    pass
-
-
 def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.ndarray, X_test:np.ndarray, y_test:np.ndarray, base_accuracy:float=0.6) -> MetricInfoArtifact:
     """
     Description: This function compare multiple regression model return best model
@@ -81,7 +76,7 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             train_rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
             test_rmse = np.sqrt(mean_squared_error(y_test, y_test_pred))
 
-            # Calculating harmonic mean of train_accuracy and test_accuracy
+            # Calculating harmonic mean of train_accuracy and test_accuracy  (f1_score)
             model_accuracy = (2 * (train_acc * test_acc)) / (train_acc + test_acc)
             diff_test_train_acc = abs(test_acc - train_acc)
             
@@ -89,14 +84,13 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             logging.info(f"{'>>'*30} Score {'<<'*30}")
             logging.info(f"Train Score\t\t Test Score\t\t Average Score")
             logging.info(f"{train_acc}\t\t {test_acc}\t\t{model_accuracy}")
-
             logging.info(f"{'>>'*30} Loss {'<<'*30}")
             logging.info(f"Diff test train accuracy: [{diff_test_train_acc}].") 
             logging.info(f"Train root mean squared error: [{train_rmse}].")
             logging.info(f"Test root mean squared error: [{test_rmse}].")
 
-            #if model accuracy is greater than base accuracy and train and test score is within certain thershold
-            #we will accept that model as accepted model
+            # if model accuracy is greater than base accuracy and train and test score is within certain thershold
+            # we will accept that model as accepted model
             if model_accuracy >= base_accuracy and diff_test_train_acc < 0.05:
                 base_accuracy = model_accuracy
                 metric_info_artifact = MetricInfoArtifact(model_name=model_name,
@@ -167,7 +161,6 @@ class ModelFactory:
         except Exception as e:
             raise HousingException(e, sys) from e
 
-
     @staticmethod
     def update_property_of_class(instance_ref:object, property_data: dict):
         try:
@@ -181,7 +174,6 @@ class ModelFactory:
         except Exception as e:
             raise HousingException(e, sys) from e
 
-
     @staticmethod
     def read_params(config_path: str) -> dict:
         try:
@@ -190,7 +182,6 @@ class ModelFactory:
             return config
         except Exception as e:
             raise HousingException(e, sys) from e
-
 
     @staticmethod
     def class_for_name(module_name:str, class_name:str):
@@ -321,7 +312,6 @@ class ModelFactory:
         except Exception as e:
             raise HousingException(e, sys) from e
 
-
     @staticmethod
     def get_model_detail(model_details: List[InitializedModelDetail],
                          model_serial_number: str) -> InitializedModelDetail:
@@ -334,7 +324,6 @@ class ModelFactory:
                     return model_data
         except Exception as e:
             raise HousingException(e, sys) from e
-
 
     @staticmethod
     def get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list: List[GridSearchedBestModel],
