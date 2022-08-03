@@ -4,6 +4,9 @@ from housing.entity.config_entity import ModelTrainerConfig
 from housing.entity.artifact_entity import DataTransformationArtifact
 from housing.util.util import read_yaml_file,save_object, load_numpy_array, load_data
 
+from housing.entity.model_factory import MetricInfoArtifact,GridSearchedBestModel,ModelFactory
+from housing.entity.model_factory import evaluate_regression_model
+
 import os,sys
 import numpy as np
 import pandas as pd
@@ -51,12 +54,13 @@ class ModelTrainer:
             model_config_file_path = self.model_trainer_config.model_config_file_path
 
             logging.info(f"Initializing model factory class using above model config file path")
-            model_factory = ModelFactory()
+            model_factory = ModelFactory(model_config_path=model_config_file_path)
 
             base_accuracy = self.model_trainer_config.base_accuracy
             logging.info(f"Expected accuracy: {base_accuracy}")
 
             logging.info(f"Initiating operation model selection")
+            
 
 
 
