@@ -41,9 +41,9 @@ class FeatureGenerator(BaseEstimator,TransformerMixin):
         FeatureGenerator Initialization
         Description: If add_bedrooms_per_room value is equal True, 
                      It will add 3 extra columns to dataset.
-                     1. room_per_household, 2. population_per_household, 3. bedrooms_per_room
-                     else I will add 2 extra columns to dataset.
-                     1. room_per_household, 2. population_per_household
+                        1. room_per_household, 2. population_per_household, 3. bedrooms_per_room
+                     else It will add 2 extra columns to dataset.
+                        1. room_per_household, 2. population_per_household
         Return: generated_feature
         add_bedrooms_per_room = bool,
         total_room_ix = int index number of total rooms columns,
@@ -97,7 +97,7 @@ class DataTransformation:
 
     def __init__(self, data_transformation_config: DataTransformationConfig,
                  data_ingestion_artifact: DataIngestionArtifact,
-                 data_validation_artifact: DataValidationArtifact) -> None:
+                 data_validation_artifact: DataValidationArtifact):
         try:
             logging.info(f"{'>>'*15}Data Transformation log started.{'<<'*15}")
             self.data_transformation_config = data_transformation_config

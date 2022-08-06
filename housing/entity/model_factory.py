@@ -9,8 +9,8 @@ from typing import List
 from sklearn.metrics import r2_score,mean_squared_error
 
 GRID_SEARCH_KEY = 'grid_search'
-MODULE_KEY = 'module'
 CLASS_KEY = 'class'
+MODULE_KEY = 'module'
 PARAM_KEY = 'params'
 MODEL_SELECTION_KEY = 'model_selection'
 SEARCH_PARAM_GRID_KEY = "search_param_grid"
@@ -44,7 +44,8 @@ MetricInfoArtifact = namedtuple("MetricInfoArtifact",["model_name",
                                                       "index_number"])
 
 
-def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.ndarray, X_test:np.ndarray, y_test:np.ndarray, base_accuracy:float=0.6) -> MetricInfoArtifact:
+def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.ndarray, 
+                              X_test:np.ndarray, y_test:np.ndarray, base_accuracy:float=0.6) -> MetricInfoArtifact:
     """
     Description: This function compare multiple regression model return best model
     Params: model_list: List of model
@@ -81,10 +82,10 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             diff_test_train_acc = abs(test_acc - train_acc)
             
             #logging all important metric
-            logging.info(f"{'>>'*30} Score {'<<'*30}")
+            logging.info(f"{'>>'*20} Score {'<<'*20}")
             logging.info(f"Train Score\t\t Test Score\t\t Average Score")
-            logging.info(f"{train_acc}\t\t {test_acc}\t\t{model_accuracy}")
-            logging.info(f"{'>>'*30} Loss {'<<'*30}")
+            logging.info(f"{np.round(train_acc,8)}\t\t {np.round(test_acc,8)}\t\t{np.round(model_accuracy,8)}")
+            logging.info(f"{'>>'*20} Loss {'<<'*20}")
             logging.info(f"Diff test train accuracy: [{diff_test_train_acc}].") 
             logging.info(f"Train root mean squared error: [{train_rmse}].")
             logging.info(f"Test root mean squared error: [{test_rmse}].")
@@ -152,9 +153,11 @@ class ModelFactory:
     def __init__(self, model_config_path: str = None,):
         try:
             self.config: dict = ModelFactory.read_params(model_config_path)
+
             self.grid_search_cv_module: str = self.config[GRID_SEARCH_KEY][MODULE_KEY]
             self.grid_search_class_name: str = self.config[GRID_SEARCH_KEY][CLASS_KEY]
             self.grid_search_property_data: dict = dict(self.config[GRID_SEARCH_KEY][PARAM_KEY])
+
             self.models_initialization_config: dict = dict(self.config[MODEL_SELECTION_KEY])
             self.initialized_model_list = None
             self.grid_searched_best_model_list = None

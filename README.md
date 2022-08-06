@@ -128,4 +128,8 @@ To install ipykernel
 pip install ipykernel
 ```
 
-Data Drift: When your datset stats gets change we call it as data drift
+Data Drift: 
+    - When your datset stats gets change we call it as data drift.
+    - To detect data drift we are using Evidently library.
+    - Evidenty library internally uses ks_2samp from scipy.stats to compare the distribution of 2 arrays.
+

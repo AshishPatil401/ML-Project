@@ -62,15 +62,15 @@ def load_numpy_array(file_path:str)-> np.array:
         raise HousingException(e,sys) from e
 
 
-def save_object(file_path:str, obj):
+def save_object(file_path:str,obj):
+    """
+    file_path: str
+    obj: Any sort of object
+    """
     try:
-        """
-        file_path: str
-        obj: Any sort of object
-        """
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
-        with open(file_path,"wb") as file_obj:
+        with open(file_path, "wb") as file_obj:
             dill.dump(obj, file_obj)
     except Exception as e:
         raise HousingException(e,sys) from e

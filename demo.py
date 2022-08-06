@@ -1,4 +1,3 @@
-from sklearn import pipeline
 from housing.pipeline.pipeline import Pipeline
 from housing.exception import HousingException
 from housing.logger import logging

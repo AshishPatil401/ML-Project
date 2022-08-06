@@ -3,7 +3,7 @@ from housing.logger import logging
 from housing.entity.config_entity import DataValidationConfig
 from housing.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 from housing.util.util import read_yaml_file
-from constant import *
+from housing.constant import *
 import os,sys
 import pandas as pd
 
@@ -189,10 +189,10 @@ class DataValidation:
 
             data_validation_artifact = DataValidationArtifact(
                 schema_file_path = self.data_validation_config.schema_file_path,
-                report_file_path=self.data_validation_config.report_file_path,
-                report_page_file_path=self.data_validation_config.report_page_file_path,
-                is_validated=True,
-                message="Data Validation performed successfully..."
+                report_file_path = self.data_validation_config.report_file_path,
+                report_page_file_path = self.data_validation_config.report_page_file_path,
+                is_validated = True,
+                message = "Data Validation performed successfully..."
             )
             logging.info(f"Data validation artifact : {data_validation_artifact}")
             return data_validation_artifact
