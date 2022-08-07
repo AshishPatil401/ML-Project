@@ -73,10 +73,16 @@ MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model_config_file_name"
 # Model Evaluation related constants
 MODEL_EVALUATION_ARTIFACT_DIR = "model_evaluation"
 MODEL_EVALUATION_CONFIG_KEY = "model_evaluation_config"
-MODEL_EVALUATION_FILE_NAME = "model_evaluation_file_name"
+MODEL_EVALUATION_FILE_NAME_KEY = "model_evaluation_file_name"
 
 # Model Pusher related constants
 MODEL_PUSHER_ARTIFACT_DIR = "model_pusher"
 MODEL_PUSHER_CONFIG_KEY = "model_pusher_config"
 MODEL_PUSHER_MODEL_EXPORT_DIR_KEY = "model_export_dir"
 
+BEST_MODEL_KEY = "best_model"
+HISTORY_KEY = "history"
+MODEL_PATH_KEY = "model_path"
+
+EXPERIMENT_DIR_NAME="experiment"
+EXPERIMENT_FILE_NAME="experiment.csv"

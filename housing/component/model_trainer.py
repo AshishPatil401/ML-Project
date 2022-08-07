@@ -1,4 +1,3 @@
-from typing import List
 from housing.exception import HousingException
 from housing.logger import logging
 from housing.entity.config_entity import ModelTrainerConfig
@@ -11,6 +10,7 @@ from housing.entity.model_factory import evaluate_regression_model
 import os,sys
 import numpy as np
 import pandas as pd
+from typing import List
 
 
 # Steps
@@ -36,9 +36,10 @@ class HousingEstimatorModel:
 
     def predict(self, X):
         """
-        function accepts raw inputs and then transformed raw input using preprocessing_object
-        which gurantees that the inputs are in the same format as the training data
-        At last it perform prediction on transformed features
+        Description : Function accepts raw inputs and then transformed raw input using preprocessing_object
+                      which gurantees that the inputs are in the same format as the training data
+                      At last it perform prediction on transformed features
+        Return : trained_model_object               
         """
         transformed_feature = self.preprocessing_object.transform(X)
         return self.trained_model_object.predict(transformed_feature)
@@ -98,7 +99,7 @@ class ModelTrainer:
             logging.info(f"Evaluate all trained model on training and testing dataset both")
 
             metric_info:MetricInfoArtifact = evaluate_regression_model(model_list=model_list,X_train=x_train,y_train=y_train,X_test=x_test,y_test=y_test,base_accuracy=base_accuracy)
-            logging.info(f"Best found model on both training and testing dataset.")
+            logging.info(f"Best Model found on both training and testing dataset.")
 
             preprocessing_obj=  load_object(file_path=self.data_transformation_artifact.preprocessed_object_file_path)
             model_object = metric_info.model_object
@@ -124,3 +125,16 @@ class ModelTrainer:
     
     def __del__(self):
         logging.info(f"{'>>'*15}Model Trainer log completed.{'<<'*15} \n  ")
+
+
+
+
+# Loading transformed training and testing dataset
+# Reading model config file.
+# Getting both model on training dataset
+# Evaluating model on both training and testing dataset
+# Loading preprocessing object
+
+# Custom model object by combining both preprocessing object model object
+# saving custom model object
+# Returning model trainer artifact

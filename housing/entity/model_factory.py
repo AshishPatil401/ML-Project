@@ -63,7 +63,7 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
         for model in model_list:
             #Getting model name based on model object
             model_name = str(model)  
-            logging.info(f"{'>>'*30}Started evaluating model: [{type(model).__name__}] {'<<'*30}")
+            logging.info(f"{'>>'*20}Started evaluating model: [{type(model).__name__}] {'<<'*20}")
             
             #Getting prediction for training and testing dataset
             y_train_pred = model.predict(X_train)
