@@ -184,12 +184,6 @@ class Configuration:
 
             base_accuracy = model_trainer_config_info[MODEL_TRAINER_BASE_ACCURACY_KEY]
 
-
-            model_config_file_path = os.path.join(
-                model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_DIR_KEY],
-                model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY]
-            )
-
             model_trainer_config = ModelTrainerConfig(
                 trained_model_file_path=trained_model_file_path,
                 base_accuracy=base_accuracy,
@@ -223,19 +217,15 @@ class Configuration:
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
         try:
-            time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
-            model_pusher_config_info = self.config_info(MODEL_PUSHER_CONFIG_KEY)
-            
-            export_dir_path = os.path.join(
-                ROOT_DIR,
-                model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
-                time_stamp
-            )
+            #time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            model_pusher_config_info = self.config_info[MODEL_PUSHER_CONFIG_KEY]
+            export_dir_path = os.path.join(ROOT_DIR, model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
+                                           self.time_stamp)
 
             model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
-
-            logging.info(f"Model Pusher Config : {model_pusher_config}\n")
+            logging.info(f"Model pusher config : {model_pusher_config}\n")
             return model_pusher_config
+
         except Exception as e:
             raise HousingException(e,sys) from e
 

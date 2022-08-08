@@ -223,10 +223,10 @@ class ModelFactory:
                                                                    self.grid_search_property_data)
 
             
-            message = f'{">>"* 30} f"Training {type(initialized_model.model).__name__} Started." {"<<"*30}'
+            message = f'{">>"* 20} f"Training {type(initialized_model.model).__name__} Started." {"<<"*20}'
             logging.info(message)
             grid_search_cv.fit(input_feature, output_feature)
-            message = f'{">>"* 30} f"Training {type(initialized_model.model).__name__}" completed {"<<"*30}'
+            message = f'{">>"* 20} f"Training {type(initialized_model.model).__name__}" completed {"<<"*20}'
             grid_searched_best_model = GridSearchedBestModel(model_serial_number=initialized_model.model_serial_number,
                                                              model=initialized_model.model,
                                                              best_model=grid_search_cv.best_estimator_,
