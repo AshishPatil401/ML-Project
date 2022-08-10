@@ -154,9 +154,9 @@ class ModelFactory:
         try:
             self.config: dict = ModelFactory.read_params(model_config_path)
 
-            self.grid_search_cv_module: str = self.config[GRID_SEARCH_KEY][MODULE_KEY]
-            self.grid_search_class_name: str = self.config[GRID_SEARCH_KEY][CLASS_KEY]
-            self.grid_search_property_data: dict = dict(self.config[GRID_SEARCH_KEY][PARAM_KEY])
+            self.grid_search_cv_module: str = self.config[GRID_SEARCH_KEY][MODULE_KEY]            # 'sklearn.model_selection'
+            self.grid_search_class_name: str = self.config[GRID_SEARCH_KEY][CLASS_KEY]            # 'GridSearchCV'
+            self.grid_search_property_data: dict = dict(self.config[GRID_SEARCH_KEY][PARAM_KEY])  # {'cv': 5, 'verbose': 2}
 
             self.models_initialization_config: dict = dict(self.config[MODEL_SELECTION_KEY])
             self.initialized_model_list = None
@@ -165,15 +165,15 @@ class ModelFactory:
             raise HousingException(e, sys) from e
 
     @staticmethod
-    def update_property_of_class(instance_ref:object, property_data: dict):
+    def update_property_of_class(instance_ref:object, property_data: dict):       # instance_ref:LinearRegression(), property_data: {'fit_intercept': True}
         try:
             if not isinstance(property_data, dict):
                 raise Exception("property_data parameter required to dictionary")
             print(property_data)
             for key, value in property_data.items():
-                logging.info(f"Executing:$ {str(instance_ref)}.{key}={value}")
+                logging.info(f"Executing:$ {str(instance_ref)}.{key}={value}")     # "Executing:$ LinearRegression().fit_intercept=True or LinearRegression(fit_intercept=True)
                 setattr(instance_ref, key, value)
-            return instance_ref
+            return instance_ref                                                    # LinearRegression(fit_intercept=True)
         except Exception as e:
             raise HousingException(e, sys) from e
 
@@ -241,25 +241,26 @@ class ModelFactory:
 
     def get_initialized_model_list(self) -> List[InitializedModelDetail]:
         """
-        This function will return a list of model details.
-        return List[ModelDetail]
+        Description: This function will return a list of model details.
+        return:  List[ModelDetail]
+        for example: [InitializedModelDetail(model_serial_number='module_0', model=LinearRegression(), param_grid_search={'fit_intercept': [True, False]}, model_name='sklearn.linear_model.LinearRegression')]
         """
         try:
             initialized_model_list = []
-            for model_serial_number in self.models_initialization_config.keys():
-
-                model_initialization_config = self.models_initialization_config[model_serial_number]
-                model_obj_ref = ModelFactory.class_for_name(module_name=model_initialization_config[MODULE_KEY],
-                                                            class_name=model_initialization_config[CLASS_KEY]
+            for model_serial_number in self.models_initialization_config.keys():                         
+                # for model_serial_number in ['module_0', 'module_1']
+                model_initialization_config = self.models_initialization_config[model_serial_number]             # dict  {class:'LinearRegression', module:'sklearn.linear_model', params:{'fit_intercept': True}  ,'search_param_grid': {'fit_intercept': [True, False]} }
+                model_obj_ref = ModelFactory.class_for_name(module_name=model_initialization_config[MODULE_KEY], # sklearn.linear_model
+                                                            class_name=model_initialization_config[CLASS_KEY]    # LinearRegression
                                                             )
-                model = model_obj_ref()
+                model = model_obj_ref()                                                                          # LinearRegression()  
                 
                 if PARAM_KEY in model_initialization_config:
-                    model_obj_property_data = dict(model_initialization_config[PARAM_KEY])
+                    model_obj_property_data = dict(model_initialization_config[PARAM_KEY])                       # {'fit_intercept': True}
                     model = ModelFactory.update_property_of_class(instance_ref=model,
                                                                   property_data=model_obj_property_data)
 
-                param_grid_search = model_initialization_config[SEARCH_PARAM_GRID_KEY]
+                param_grid_search = model_initialization_config[SEARCH_PARAM_GRID_KEY]                            # {'fit_intercept': [True, False]}
                 model_name = f"{model_initialization_config[MODULE_KEY]}.{model_initialization_config[CLASS_KEY]}"
 
                 model_initialization_config = InitializedModelDetail(model_serial_number=model_serial_number,
@@ -304,11 +305,11 @@ class ModelFactory:
 
         try:
             self.grid_searched_best_model_list = []
-            for initialized_model_list in initialized_model_list:
+            for initialized_model in initialized_model_list:
                 grid_searched_best_model = self.initiate_best_parameter_search_for_initialized_model(
-                    initialized_model=initialized_model_list,
-                    input_feature=input_feature,
-                    output_feature=output_feature
+                    initialized_model=initialized_model,
+                    input_feature=input_feature,                 # input_feature = X_train
+                    output_feature=output_feature                # output_feature = y_train
                 )
                 self.grid_searched_best_model_list.append(grid_searched_best_model)
             return self.grid_searched_best_model_list
@@ -355,8 +356,8 @@ class ModelFactory:
             logging.info(f"Initialized model: {initialized_model_list}")
             grid_searched_best_model_list = self.initiate_best_parameter_search_for_initialized_models(
                 initialized_model_list=initialized_model_list,
-                input_feature=X,
-                output_feature=y
+                input_feature=X,                    # X = X_train
+                output_feature=y                    # y = y_train
             )
             return ModelFactory.get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list,
                                                                                   base_accuracy=base_accuracy)

@@ -33,9 +33,9 @@ class ModelEvaluation:
             model_evaluation_file_path = self.model_evaluation_config.model_evaluation_file_path
 
             if not os.path.exists(model_evaluation_file_path):
-                write_yaml_file(file_path=model_evaluation_file_path,
-                                data=dict())
+                write_yaml_file(file_path=model_evaluation_file_path, data=dict())
                 return model
+
             model_eval_file_content = read_yaml_file(file_path=model_evaluation_file_path)
 
             model_eval_file_content = dict() if model_eval_file_content is None else model_eval_file_content
@@ -53,7 +53,6 @@ class ModelEvaluation:
             eval_file_path = self.model_evaluation_config.model_evaluation_file_path
             model_eval_content = read_yaml_file(file_path=eval_file_path)
             model_eval_content = dict() if model_eval_content is None else model_eval_content
-            
             
             previous_best_model = None
             if BEST_MODEL_KEY in model_eval_content:
@@ -81,6 +80,7 @@ class ModelEvaluation:
         except Exception as e:
             raise HousingException(e, sys) from e
 
+
     def initiate_model_evaluation(self) -> ModelEvaluationArtifact:
         try:
             trained_model_file_path = self.model_trainer_artifact.trained_model_file_path
@@ -92,12 +92,13 @@ class ModelEvaluation:
             schema_file_path = self.data_validation_artifact.schema_file_path
 
             train_dataframe = load_data(file_path=train_file_path,
-                                                           schema_file_path=schema_file_path,
-                                                           )
+                                        schema_file_path=schema_file_path,
+                                    )
             test_dataframe = load_data(file_path=test_file_path,
-                                                          schema_file_path=schema_file_path,
-                                                          )
+                                       schema_file_path=schema_file_path,
+                                    )
             schema_content = read_yaml_file(file_path=schema_file_path)
+            
             target_column_name = schema_content[TARGET_COLUMN_KEY]
 
             # target_column

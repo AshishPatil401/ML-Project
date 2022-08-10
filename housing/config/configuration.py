@@ -146,7 +146,6 @@ class Configuration:
                 data_transformation_config_info[DATA_TRANFORMATION_TEST_DIR_NAME_KEY]
             )
 
-
             data_transformation_config = DataTransformationConfig(
                 add_bedroom_per_room=add_bedroom_per_room,
                 transformed_train_dir=transformed_train_dir,
@@ -217,10 +216,10 @@ class Configuration:
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
         try:
-            #time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
             model_pusher_config_info = self.config_info[MODEL_PUSHER_CONFIG_KEY]
             export_dir_path = os.path.join(ROOT_DIR, model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
-                                           self.time_stamp)
+                                           time_stamp)
 
             model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
             logging.info(f"Model pusher config : {model_pusher_config}\n")

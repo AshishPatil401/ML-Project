@@ -9,7 +9,10 @@ SCHEMA_FILE_NAME = "schema.yaml"
 
 CONFIG_FILE_PATH = os.path.join(ROOT_DIR,CONFIG_DIR,CONFIG_FILE_NAME)   # 
 
-CURRENT_TIME_STAMP = f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"   
+def get_current_time_stamp():
+    return f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+
+CURRENT_TIME_STAMP = get_current_time_stamp()
 
 
 # Training pipeline related variables
@@ -84,5 +87,6 @@ BEST_MODEL_KEY = "best_model"
 HISTORY_KEY = "history"
 MODEL_PATH_KEY = "model_path"
 
+# Pipeline related constants
 EXPERIMENT_DIR_NAME="experiment"
 EXPERIMENT_FILE_NAME="experiment.csv"
