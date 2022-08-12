@@ -160,9 +160,32 @@ class Pipeline(Thread):
                 logging.info("Trained model rejected.")
             logging.info("Pipeline completed.")
 
+            stop_time = datetime.now()
+
+            Pipeline.experiment = Experiment(experiment_id=Pipeline.experiment.experiment_id,
+                                             initialization_timestamp=self.config.time_stamp,
+                                             artifact_time_stamp=self.config.time_stamp,
+                                             running_status=False,
+                                             start_time=Pipeline.experiment.start_time,
+                                             stop_time=stop_time,
+                                             execution_time=stop_time - Pipeline.experiment.start_time,
+                                             message="Pipeline has been completed.",
+                                             experiment_file_path=Pipeline.experiment_file_path,
+                                             is_model_accepted=model_evaluation_artifact.is_model_accepted,
+                                             accuracy=model_trainer_artifact.model_accuracy
+                                             )
+
+            logging.info(f"Pipeline experiment: {Pipeline.experiment}")
+            self.save_experiment()
         except Exception as e:
             raise HousingException(e,sys) from e
 
+
+    def run(self):
+        try:
+            self.run_pipeline()
+        except Exception as e:
+            raise e
 
 
     def save_experiment(self):
@@ -184,7 +207,7 @@ class Pipeline(Thread):
                 else:
                     experiment_report.to_csv(Pipeline.experiment_file_path, mode="w", index=False, header=True)
             else:
-                print("First start experiment")
+                print("First Start experiment")
         except Exception as e:
             raise HousingException(e, sys) from e
 
