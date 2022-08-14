@@ -31,13 +31,13 @@ Experiment = namedtuple("Experiment", ["experiment_id", "initialization_timestam
 
 class Pipeline(Thread):
 
-    experiment:Experiment = Experiment(*([None]*11))
-    experiment_file_path = None
+    experiment:Experiment = Experiment(*([None]*11))        # class level attribute
+    experiment_file_path = None                             # class level attribute
 
     def __init__(self, config:Configuration=Configuration()) -> None:
         try:
             os.makedirs(config.training_pipeline_config.artifact_dir, exist_ok=True)
-            Pipeline.experiment_file_path = os.path.join(config.training_pipeline_config.artifact_dir,EXPERIMENT_DIR_NAME,EXPERIMENT_FILE_NAME)
+            Pipeline.experiment_file_path = os.path.join(config.training_pipeline_config.artifact_dir,EXPERIMENT_DIR_NAME,EXPERIMENT_FILE_NAME)    # class level attribute
             super().__init__(daemon=False,name='pipeline')
             self.config=config
 
