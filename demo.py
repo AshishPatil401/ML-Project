@@ -9,14 +9,19 @@ from housing.component.data_transformation import DataTransformation
 
 def main():
     try:
+
         pipeline = Pipeline()
         pipeline.run()
+        
+        #gata_ingestion_config = Configuration().get_data_ingestion_config()
+        #print(gata_ingestion_config)
+        
 
         #data_validation_config = Configuration().get_data_validation_config()
         #print(data_validation_config)
 
-        # data_transformation_config = Configuration().get_data_transformation_config()
-        # print(data_transformation_config)
+        #data_transformation_config = Configuration().get_data_transformation_config()
+        #print(data_transformation_config)
 
         # df = DataTransformation.load_data(file_path=file_path,schema_file_path=schema_file_path)
         # print(df.columns)

@@ -1,5 +1,6 @@
 from housing.exception import HousingException
 from housing.logger import logging
+
 import importlib
 import numpy as np
 import yaml
@@ -241,7 +242,7 @@ class ModelFactory:
 
     def get_initialized_model_list(self) -> List[InitializedModelDetail]:
         """
-        Description: This function will return a list of model details.
+        Description: This function will return a list of model details from model.yaml file.
         return:  List[ModelDetail]
         for example: [InitializedModelDetail(model_serial_number='module_0', model=LinearRegression(), param_grid_search={'fit_intercept': [True, False]}, model_name='sklearn.linear_model.LinearRegression')]
         """

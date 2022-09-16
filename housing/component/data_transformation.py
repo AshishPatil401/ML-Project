@@ -33,22 +33,22 @@ from sklearn.base import BaseEstimator, TransformerMixin
 class FeatureGenerator(BaseEstimator,TransformerMixin):
 
     def __init__(self, add_bedrooms_per_room=True,
-                 total_room_ix=3,
+                 total_rooms_ix=3,
                  population_ix=5,
                  households_ix=6,
                  total_bedrooms_ix=4, columns=None):
         """
         FeatureGenerator Initialization
         Description: If add_bedrooms_per_room value is equal True, 
-                     It will add 3 extra columns to dataset.
+                     It will add three extra columns to dataset.
                         1. room_per_household, 2. population_per_household, 3. bedrooms_per_room
-                     else It will add 2 extra columns to dataset.
+                     else It will add two extra columns to dataset.
                         1. room_per_household, 2. population_per_household
         Return: generated_feature
         add_bedrooms_per_room = bool,
-        total_room_ix = int index number of total rooms columns,
+        total_rooms_ix = int index number of total rooms columns,
         population_ix = int index number of total population columns,
-        household_ix = int index number of households columns,
+        households_ix = int index number of households columns,
         total_bedroom_ix = int index number of total bedrooms columns, columns=None
 
         np.c_ :It  used for concatination
@@ -56,13 +56,13 @@ class FeatureGenerator(BaseEstimator,TransformerMixin):
         try:
             self.columns = columns
             if self.columns is not None:
-                total_room_ix = self.columns.index(COLUMN_TOTAL_ROOMS)
+                total_rooms_ix = self.columns.index(COLUMN_TOTAL_ROOMS)
                 population_ix = self.columns.index(COLUMN_POPULATION)
                 households_ix = self.columns.index(COLUMN_HOUSEHOLDS)
                 total_bedrooms_ix = self.columns.index(COLUMN_TOTAL_BEDROOM)
 
             self.add_bedrooms_per_room = add_bedrooms_per_room
-            self.total_room_ix = total_room_ix
+            self.total_rooms_ix = total_rooms_ix
             self.population_ix = population_ix
             self.households_ix = households_ix
             self.total_bedrooms_ix = total_bedrooms_ix
@@ -76,11 +76,11 @@ class FeatureGenerator(BaseEstimator,TransformerMixin):
 
     def transform(self,X, y=None):
         try:
-            room_per_household = X[:,self.total_room_ix]/X[:,self.households_ix]
-            population_per_household = X[:,self.population_ix]/X[:,self.households_ix]
+            room_per_household = X[:,self.total_rooms_ix] / X[:,self.households_ix]
+            population_per_household = X[:,self.population_ix] / X[:,self.households_ix]
             
             if self.add_bedrooms_per_room:
-                bedrooms_per_room = X[:,self.total_bedrooms_ix]/X[:,self.total_room_ix]
+                bedrooms_per_room = X[:,self.total_bedrooms_ix] / X[:,self.total_rooms_ix]
                 generated_feature = np.c_[X, room_per_household, population_per_household, bedrooms_per_room]
             else:
                 generated_feature = np.c_[X, room_per_household, population_per_household]
@@ -126,7 +126,7 @@ class DataTransformation:
 
             cat_pipeline = Pipeline([
                 ('imputer', SimpleImputer(strategy="most_frequent")),
-                ('oneHotEncoder', OneHotEncoder()),
+                ('oneHotEncoder', OneHotEncoder(drop='first')),
                 ('scaler', StandardScaler(with_mean=False))
             ])
 
@@ -164,10 +164,10 @@ class DataTransformation:
 
             logging.info(f"Splitting input and target feature from training and testing dataframe")
             input_feature_train_df = train_df.drop(columns=[target_column_name] , axis=1)
-            target_feature_train_df = train_df[[target_column_name]]
+            target_feature_train_df = train_df[target_column_name]
 
             input_feature_test_df = test_df.drop(columns=[target_column_name] , axis=1)
-            target_feature_test_df = test_df[[target_column_name]]
+            target_feature_test_df = test_df[target_column_name]
 
             logging.info(f"Applying preprocessing on tarining and testing dataframe")
             input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
